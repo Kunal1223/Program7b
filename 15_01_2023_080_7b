@@ -1,0 +1,112 @@
+#include<stdio.h>                    //adding the header file 
+#include<stdlib.h>                 //adding the header file 
+
+    struct node                           //struct initialization with data and next node
+    {  
+        int data;  
+        struct node *next;  
+    };  
+    struct node *front;       
+    struct node *rear;  
+    void insert();                        //insertion deletion and display funtion
+    void delete();  
+    void display();
+
+ 
+int main ()  
+    {  
+        int choice;  
+        while(1)                                //initialize the while loop
+        {      
+         printf("\n1.Insert an element\n2.Delete an element\n3.Display the queue\n4.Exit\n");  
+            printf("\nEnter your choice ?\n");  
+            scanf("%d",& choice);  
+            switch(choice)                      //intialize the swich case
+            {  
+                case 1:  
+                       insert();  
+                       break;  
+
+                case 2:  
+                       delete();  
+                       break;  
+               
+               case 3:  
+                       display();  
+                       break;  
+
+               case 4:  
+                       exit(0);  
+                       break;  
+
+                default:                                  //set the default value
+                printf("\nEnter valid choice??\n");  
+            }  
+        }  
+    }  
+
+    void insert()  
+    {  
+        struct node *ptr;                              //ptr pointer node
+        int item;  
+         
+        ptr = (struct node *) malloc (sizeof(struct node));              //allot the memory of ptr
+        if(ptr == NULL)                                          //check the ptr condition
+        {  
+            printf("\nOVERFLOW\n");  
+            return;  
+        }  
+        else  
+        {  
+            printf("\nEnter value?\n");  
+            scanf("%d",&item);  
+            ptr -> data = item;  
+            if(front == NULL)  
+            {  
+                front = ptr;  
+                rear = ptr;  
+                front -> next = NULL;  
+                rear -> next = NULL;  
+            }  
+            else  
+            {  
+                rear -> next = ptr;  
+                rear = ptr;  
+                rear->next = NULL;  
+            }  
+        }  
+    }  
+ 
+    void delete ()       //deffine the delete the function
+    {  
+        struct node *ptr;  
+        if(front == NULL)  
+        {  
+            printf("\nUNDERFLOW\n");  
+            return;  
+        }  
+        else  
+        {  
+            ptr = front;  
+            front = front -> next;  
+            free(ptr);  
+        }  
+    }
+ 
+    void display()          //define the display function
+    {  
+        struct node *ptr;  
+        ptr = front;      
+        if(front == NULL)  
+        {  
+            printf("\nEmpty queue\n");  
+        }  
+        else  
+        {   printf("\nprinting values .....\n");  
+            while(ptr != NULL)  
+            {  
+                printf("\n%d\n",ptr -> data);  
+                ptr = ptr -> next;  
+            }  
+        }  
+    }
